@@ -12,7 +12,7 @@
   - I can set Cache Control Headers
     - I can set ETag Headers
 
-- [ ] I can have custom Formats
+- [x] I can have custom Formats
   - I can have a Person File format
     - I can change how a Person Looks
     - I can update what a Person is

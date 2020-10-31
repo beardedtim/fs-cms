@@ -67,8 +67,8 @@ const send_file = async (req, res) => {
   handle_closing_stream(transformationStream, res)
 }
 
-const get_person_template_path = () =>
-  path.resolve(Constants.FILE_ROOT_DIR, 'templates', 'person.html')
+const get_person_template_path = () => Constants.PERSON_TEMPLATE
+
 const person_to_variables = (person) =>
   Object.entries(person).reduce(
     (a, c) => ({

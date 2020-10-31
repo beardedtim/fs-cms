@@ -10,8 +10,8 @@
     "fmt": "prettier --write {src,files,config}/**/*.js"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "js-yaml": "^3.14.0",
-    "markdown-it": "^12.0.2",
     "ramda": "^0.27.1",
     "rxjs": "^6.6.3"
   },

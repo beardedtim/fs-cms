@@ -1,9 +1,9 @@
 import path from 'path'
 import { from } from 'rxjs'
-import markdownIt from 'markdown-it'
 import yml from 'js-yaml'
+import cheerio from 'cheerio'
 
-import { map, concatMap } from 'rxjs/operators/index.js'
+import { map, concatMap, filter } from 'rxjs/operators/index.js'
 import { readByLine } from './file-system.js'
 import * as Constants from '../config/constants.js'
 import * as Vars from '../config/vars.js'
@@ -45,8 +45,23 @@ export const applyVariables = (vars) =>
     return new_line
   })
 
+const removeEmptyBlocks = filter(line => {
+  const $ = cheerio.load(line)
+
+  if ($('body').children().get(0)) {
+    const el = $('body').children().get(0)
+    return el.children.length > 0 || el.type !== 'img'
+  }
+  
+  return true
+})
+
 export const applyTransformers = (vars = Vars) => (obs) => {
-  return obs.pipe(expandIncludes, applyVariables(vars))
+  return obs.pipe(
+    expandIncludes,
+    applyVariables(vars),
+    removeEmptyBlocks,
+  )
 }
 
 export const transform_yml = yml.load
