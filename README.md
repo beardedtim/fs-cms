@@ -25,6 +25,7 @@ yarn dev
 
 
 ## Example
+![](https://cdn.loom.com/sessions/thumbnails/cdd56c727a0e429889f2194521d08430-with-play.gif)
 
 > Loom: https://www.loom.com/embed/cdd56c727a0e429889f2194521d08430
 
