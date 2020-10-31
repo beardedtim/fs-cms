@@ -45,23 +45,19 @@ export const applyVariables = (vars) =>
     return new_line
   })
 
-const removeEmptyBlocks = filter(line => {
+const removeEmptyBlocks = filter((line) => {
   const $ = cheerio.load(line)
 
   if ($('body').children().get(0)) {
     const el = $('body').children().get(0)
     return el.children.length > 0 || el.type !== 'img'
   }
-  
+
   return true
 })
 
 export const applyTransformers = (vars = Vars) => (obs) => {
-  return obs.pipe(
-    expandIncludes,
-    applyVariables(vars),
-    removeEmptyBlocks,
-  )
+  return obs.pipe(expandIncludes, applyVariables(vars), removeEmptyBlocks)
 }
 
 export const transform_yml = yml.load
