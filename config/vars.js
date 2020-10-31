@@ -1,4 +1,4 @@
 export const title = {
-  replace: '%%TITLE%%',
+  replace: 'TITLE',
   value: 'I am the dope af Title',
 }

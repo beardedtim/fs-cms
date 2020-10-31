@@ -1,6 +1,7 @@
 import path from 'path'
 import { from } from 'rxjs'
 import markdownIt from 'markdown-it'
+import yml from 'js-yaml'
 
 import { map, concatMap } from 'rxjs/operators/index.js'
 import { readByLine } from './file-system.js'
@@ -30,24 +31,22 @@ export const expandIncludes = flatMapIf(isIncludeLine, (line) =>
   readByLine(get_path_from_include(line))
 )
 
-export const applyVariables = map((line) => {
-  let new_line = line
+export const applyVariables = (vars) =>
+  map((line) => {
+    let new_line = line
 
-  for (const { replace, value } of Object.values(Vars)) {
-    new_line = new_line.replace(replace, value)
-  }
+    for (const { replace, value } of Object.values(vars)) {
+      new_line = new_line.replace(
+        new RegExp(`(\%\%${replace}\%\%)`, 'g'),
+        value
+      )
+    }
 
-  return new_line
-})
-
-export const transformMarkdown = map((line) => {
-  const renderer = markdownIt({
-    html: true,
+    return new_line
   })
 
-  return renderer.render(line)
-})
-
-export const applyTransformers = (obs) => {
-  return obs.pipe(expandIncludes, transformMarkdown, applyVariables)
+export const applyTransformers = (vars = Vars) => (obs) => {
+  return obs.pipe(expandIncludes, applyVariables(vars))
 }
+
+export const transform_yml = yml.load

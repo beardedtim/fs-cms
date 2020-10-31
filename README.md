@@ -8,6 +8,11 @@
   - I can take in a Markdown and return HTML
   - I can display a file that includes other files
 
-- [ ] I set Headers
+- [x] I can set Headers
   - I can set Cache Control Headers
     - I can set ETag Headers
+
+- [ ] I can have custom Formats
+  - I can have a Person File format
+    - I can change how a Person Looks
+    - I can update what a Person is

@@ -17,6 +17,8 @@ export const readByLine = (filePath) => {
   return fromEvent(rl, 'line').pipe(takeUntil(fromEvent(rl, 'close')))
 }
 
+export const fileStats = fs.stat
+
 export const fileExists = (filePath) =>
   fs
     .access(filePath)
